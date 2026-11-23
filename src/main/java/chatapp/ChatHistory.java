@@ -21,7 +21,17 @@ public class ChatHistory {
         return List.copyOf(messages);
     }
 
+
     public Message getLastMessageSent() {
+        for (int i = messages.size() - 1; i >= 0; i--) {
+            Message message = messages.get(i);
+
+            if (message.getSender() == owner) {
+                return message;
+            }
+        }
+
         return null;
     }
+
 }
