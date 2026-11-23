@@ -2,6 +2,7 @@
 package chatapp;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ChatServer {
@@ -23,5 +24,9 @@ public class ChatServer {
 
     public void unregisterUser(User user) {
     users.remove(user);
+    }
+
+    public Message sendMessage(User sender, List<User> recipients, String content) {
+        return null;
     }
 }
