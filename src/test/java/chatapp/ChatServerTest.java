@@ -62,4 +62,25 @@ public class ChatServerTest {
         assertSame(message, charlie.getHistory().get(0));
     }
 
+    @Test
+    void doesNotDeliverToUnregisteredUsers() {
+        ChatServer server = new ChatServer();
+        User alice = new User("Alice", server);
+        User bob = new User("Bob", server);
+        User charlie = new User("Charlie", server);
+
+        server.registerUser(alice);
+        server.registerUser(bob);
+        server.registerUser(charlie);
+
+        server.unregisterUser(charlie);
+
+        Message message =
+                alice.sendMessage("Hello", bob, charlie);
+
+        assertEquals(1, message.getRecipients().size());
+        assertTrue(charlie.getHistory().isEmpty());
+        assertEquals(1, bob.getHistory().size());
+    }
+
 }
