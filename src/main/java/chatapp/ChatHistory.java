@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-public class ChatHistory {
+public class ChatHistory implements IterableByUser {
 
     private final User owner;
     private final List<Message> messages = new ArrayList<>();
@@ -57,6 +57,13 @@ public class ChatHistory {
         }
 
         return removed;
+    }
+
+
+    @Override
+    public java.util.Iterator<Message> iterator(User otherUser) {
+        return new searchMessagesByUser(
+                owner, otherUser, getMessages());
     }
 
 }

@@ -5,7 +5,7 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
-public class User {
+public class User implements IterableByUser {
 
     private final String name;
     private final ChatServer server;
@@ -85,6 +85,12 @@ public class User {
 
     void removeMessage(Message message) {
         history.removeMessage(message);
+    }
+
+
+    @Override
+    public java.util.Iterator<Message> iterator(User otherUser) {
+        return history.iterator(otherUser);
     }
 
 }
