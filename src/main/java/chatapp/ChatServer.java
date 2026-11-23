@@ -5,10 +5,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChatServer {
 
     private final Set<User> users = new HashSet<>();
+
+    private final Map<User, Set<User>> blockedSenders =
+            new HashMap<>();
 
     public void registerUser(User user) {
         if (user.getServer() != this) {
@@ -48,7 +53,10 @@ public class ChatServer {
         for (User recipient : requestedRecipients) {
             if (recipient != null
                     && recipient != sender
-                    && isRegistered(recipient)) {
+                    && isRegistered(recipient)
+                    && !blockedSenders
+                    .getOrDefault(recipient, Set.of())
+                    .contains(sender)) {
 
                 recipients.add(recipient);
             }
@@ -69,8 +77,17 @@ public class ChatServer {
 
         return message;
     }
+
     public void blockUser(User receiver, User sender) {
-        // Not implemented yet
+        if (!isRegistered(receiver) || !isRegistered(sender)) {
+            throw new IllegalStateException(
+                    "Both users must be registered");
+        }
+
+        blockedSenders
+                .computeIfAbsent(receiver,
+                        ignored -> new HashSet<>())
+                .add(sender);
     }
 
 
