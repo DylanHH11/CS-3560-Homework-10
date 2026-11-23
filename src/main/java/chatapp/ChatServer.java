@@ -46,7 +46,10 @@ public class ChatServer {
         List<User> recipients = new ArrayList<>();
 
         for (User recipient : requestedRecipients) {
-            if (recipient != null && recipient != sender) {
+            if (recipient != null
+                    && recipient != sender
+                    && isRegistered(recipient)) {
+
                 recipients.add(recipient);
             }
         }
