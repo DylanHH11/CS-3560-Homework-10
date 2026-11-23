@@ -4,6 +4,7 @@ package chatapp;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.ArrayList;
 
 public class ChatServer {
 
@@ -27,8 +28,9 @@ public class ChatServer {
     }
 
 
+
     public Message sendMessage(User sender,
-                               List<User> recipients,
+                               List<User> requestedRecipients,
                                String content) {
 
         if (!isRegistered(sender)) {
@@ -36,19 +38,34 @@ public class ChatServer {
                     "Sender is not registered");
         }
 
-        if (recipients == null || recipients.isEmpty()) {
+        if (requestedRecipients == null
+                || requestedRecipients.isEmpty()) {
             return null;
         }
 
-        User recipient = recipients.get(0);
+        List<User> recipients = new ArrayList<>();
 
-        Message message =
-                new Message(sender, List.of(recipient), content);
+        for (User recipient : requestedRecipients) {
+            if (recipient != null && recipient != sender) {
+                recipients.add(recipient);
+            }
+        }
+
+        if (recipients.isEmpty()) {
+            return null;
+        }
+
+        Message message = new Message(
+                sender, recipients, content);
 
         sender.recordSentMessage(message);
-        recipient.receiveMessage(message);
+
+        for (User recipient : recipients) {
+            recipient.receiveMessage(message);
+        }
 
         return message;
     }
+
 
 }
