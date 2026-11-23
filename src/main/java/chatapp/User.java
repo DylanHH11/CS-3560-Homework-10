@@ -1,6 +1,7 @@
 
 package chatapp;
 
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,6 +10,8 @@ public class User {
     private final String name;
     private final ChatServer server;
     private final ChatHistory history;
+    private String restoredDraft;
+    private Instant restoredTimestamp;
 
     public User(String name, ChatServer server) {
         this.name = name;
@@ -50,15 +53,38 @@ public class User {
 
 
     public boolean undoLastMessage() {
-        return false;
+        Message message = history.getLastMessageSent();
+
+        if (message == null) {
+            return false;
+        }
+
+        MessageMemento snapshot = history.getMemento(message);
+
+        if (snapshot == null) {
+            return false;
+        }
+
+        if (!server.undoMessage(this, message)) {
+            return false;
+        }
+
+        restoredDraft = snapshot.getContent();
+        restoredTimestamp = snapshot.getTimestamp();
+
+        return true;
     }
 
     public String getRestoredDraft() {
-        return null;
+        return restoredDraft;
     }
 
-    public java.time.Instant getRestoredTimestamp() {
-        return null;
+    public Instant getRestoredTimestamp() {
+        return restoredTimestamp;
+    }
+
+    void removeMessage(Message message) {
+        history.removeMessage(message);
     }
 
 }

@@ -48,4 +48,15 @@ public class ChatHistory {
         return sentSnapshots.get(message);
     }
 
+
+    public boolean removeMessage(Message message) {
+        boolean removed = messages.remove(message);
+
+        if (removed) {
+            sentSnapshots.remove(message);
+        }
+
+        return removed;
+    }
+
 }

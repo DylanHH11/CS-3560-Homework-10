@@ -91,4 +91,22 @@ public class ChatServer {
     }
 
 
+
+    public boolean undoMessage(User sender, Message message) {
+        if (sender == null || message == null
+                || !isRegistered(sender)
+                || message.getSender() != sender
+                || !sender.getHistory().contains(message)) {
+            return false;
+        }
+
+        sender.removeMessage(message);
+
+        for (User recipient : message.getRecipients()) {
+            recipient.removeMessage(message);
+        }
+
+        return true;
+    }
+
 }
