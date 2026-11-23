@@ -35,4 +35,9 @@ public final class Message {
     public String getContent() {
         return content;
     }
+
+    public MessageMemento saveToMemento() {
+        return null;
+    }
+
 }

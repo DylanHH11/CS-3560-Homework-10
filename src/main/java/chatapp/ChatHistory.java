@@ -34,4 +34,9 @@ public class ChatHistory {
         return null;
     }
 
+
+    public MessageMemento getMemento(Message message) {
+        return null;
+    }
+
 }
