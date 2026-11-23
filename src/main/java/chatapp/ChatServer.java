@@ -26,7 +26,29 @@ public class ChatServer {
     users.remove(user);
     }
 
-    public Message sendMessage(User sender, List<User> recipients, String content) {
-        return null;
+
+    public Message sendMessage(User sender,
+                               List<User> recipients,
+                               String content) {
+
+        if (!isRegistered(sender)) {
+            throw new IllegalStateException(
+                    "Sender is not registered");
+        }
+
+        if (recipients == null || recipients.isEmpty()) {
+            return null;
+        }
+
+        User recipient = recipients.get(0);
+
+        Message message =
+                new Message(sender, List.of(recipient), content);
+
+        sender.recordSentMessage(message);
+        recipient.receiveMessage(message);
+
+        return message;
     }
+
 }
