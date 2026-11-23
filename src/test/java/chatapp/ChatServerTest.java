@@ -10,11 +10,11 @@ public class ChatServerTest {
     @Test
     void registersUser() {
         ChatServer server = new ChatServer();
-        User user1 = new User("user1", server);
+        User alice = new User("Alice", server);
 
-        server.registerUser(user1);
+        server.registerUser(alice);
 
-        assertTrue(server.isRegistered(user1));
+        assertTrue(server.isRegistered(alice));
     }
     
     @Test
