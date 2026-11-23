@@ -44,5 +44,8 @@ public class User {
     void receiveMessage(Message message) {
         history.addMessage(message);
     }
+    public void blockUser(User sender) {
+        server.blockUser(this, sender);
+    }
 
 }

@@ -69,6 +69,9 @@ public class ChatServer {
 
         return message;
     }
+    public void blockUser(User receiver, User sender) {
+        // Not implemented yet
+    }
 
 
 }
