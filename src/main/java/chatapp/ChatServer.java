@@ -22,5 +22,6 @@ public class ChatServer {
     }
 
     public void unregisterUser(User user) {
+    users.remove(user);
     }
 }
