@@ -20,4 +20,8 @@ public class ChatHistory {
     public List<Message> getMessages() {
         return List.copyOf(messages);
     }
+
+    public Message getLastMessageSent() {
+        return null;
+    }
 }
