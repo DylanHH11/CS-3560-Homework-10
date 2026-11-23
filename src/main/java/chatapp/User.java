@@ -48,4 +48,17 @@ public class User {
         server.blockUser(this, sender);
     }
 
+
+    public boolean undoLastMessage() {
+        return false;
+    }
+
+    public String getRestoredDraft() {
+        return null;
+    }
+
+    public java.time.Instant getRestoredTimestamp() {
+        return null;
+    }
+
 }
