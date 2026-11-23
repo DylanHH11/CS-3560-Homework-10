@@ -37,7 +37,7 @@ public final class Message {
     }
 
     public MessageMemento saveToMemento() {
-        return null;
+        return new MessageMemento(content, timestamp);
     }
 
 }
