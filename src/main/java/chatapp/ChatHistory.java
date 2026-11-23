@@ -1,21 +1,23 @@
 
 package chatapp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatHistory {
 
     private final User owner;
+    private final List<Message> messages = new ArrayList<>();
 
     public ChatHistory(User owner) {
         this.owner = owner;
     }
 
     public void addMessage(Message message) {
-        // Not implemented yet
+        messages.add(message);
     }
 
     public List<Message> getMessages() {
-        return List.of();
+        return List.copyOf(messages);
     }
 }
