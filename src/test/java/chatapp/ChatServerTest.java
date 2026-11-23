@@ -16,4 +16,15 @@ public class ChatServerTest {
 
         assertTrue(server.isRegistered(user1));
     }
+    
+    @Test
+void unregistersUser() {
+    ChatServer server = new ChatServer();
+    User alice = new User("Alice", server);
+
+    server.registerUser(alice);
+    server.unregisterUser(alice);
+
+    assertFalse(server.isRegistered(alice));
+}
 }

@@ -20,4 +20,7 @@ public class ChatServer {
     public boolean isRegistered(User user) {
         return users.contains(user);
     }
+
+    public void unregisterUser(User user) {
+    }
 }
