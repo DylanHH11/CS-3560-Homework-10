@@ -3,27 +3,36 @@ package chatapp;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 
 public final class Message {
 
+    private final User sender;
+    private final List<User> recipients;
+    private final Instant timestamp;
+    private final String content;
+
     public Message(User sender, List<User> recipients,
                    String content) {
-        // Not implemented yet
+        this.sender = Objects.requireNonNull(sender);
+        this.recipients = List.copyOf(recipients);
+        this.content = Objects.requireNonNull(content);
+        this.timestamp = Instant.now();
     }
 
     public User getSender() {
-        return null;
+        return sender;
     }
 
     public List<User> getRecipients() {
-        return List.of();
+        return recipients;
     }
 
     public Instant getTimestamp() {
-        return null;
+        return timestamp;
     }
 
     public String getContent() {
-        return null;
+        return content;
     }
 }
